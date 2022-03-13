@@ -1,0 +1,4 @@
+
+[ibmcloud]
+cos_endpoint=https://s3.eu-de.cloud-object-storage.appdomain.cloud
+cos_instance_crn=<cos instance CRN>
