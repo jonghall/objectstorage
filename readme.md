@@ -23,15 +23,20 @@ cos_instance_crn=<cos instance CRN>
 ```
 Additional information on using the Aspera SDK with IBM Cloud Object Storage and specific instructions for determining the best aspera_transfer_node can be found at https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-aspera.
 
-2. Prior to running either the upload or download script first start the aspers daemon.
+2. Configure your Python3 environment
+```azure
+pip install -r requirements.txt
+```
+
+3. Prior to running either the upload or download script first start the aspers daemon.
 ```azure
 ./aspera-sdk/bin/asperatransferd
 ```
-3. export the cos_apikey or specify as a command line option.
+4. export the cos_apikey or specify as a command line option.
 ```azure
 export cos_apikey=mykey
 ```
-4. run aspera-upload or aspera-download scripts.
+5. run aspera-upload or aspera-download scripts.
 ```azure
 ./aspera-download.py -h
 usage: aspera-download.py [-h] [--inifile INIFILE] [--apikey COS_APIKEY] [--bucket COS_BUCKET] [--file FILE]
@@ -60,12 +65,16 @@ cos_endpoint=https://s3.eu-de.cloud-object-storage.appdomain.cloud
 cos_instance_crn=<cos instance CRN>
 ```
 Additional information can be found on using Python and the ``ibm_boto3`` library at https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-python
+2. Configure your Python3 environment
+```azure
+pip install -r requirements.txt
+```
 
-2. export the cos_apikey or specify as a command line option.
+3. export the cos_apikey or specify as a command line option.
 ```azure
 export cos_apikey=mykey
 ```
-3. run cos-upload or cos-download scripts.
+4. run cos-upload or cos-download scripts.
 ```azure
 ./cos-upload.py -h
 usage: cos-upload.py [-h] [--inifile INIFILE] [--apikey COS_APIKEY] [--bucket COS_BUCKET] [--file FILE]
