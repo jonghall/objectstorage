@@ -1,4 +1,5 @@
-
 [ibmcloud]
 cos_endpoint=https://s3.eu-de.cloud-object-storage.appdomain.cloud
+aspera_transfer_node=https://ats-sl-fra.aspera.io:443
 cos_instance_crn=<cos instance CRN>
+

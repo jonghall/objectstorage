@@ -15,7 +15,7 @@
 
 __author__ = 'jonhall'
 import os, configparser, json, os.path, argparse, sys, logging, grpc
-sys.path.insert(0, 'aspera-sdk/connector')
+sys.path.insert(0, 'aspera-sdk/connectors/python')
 import transfer_pb2 as transfer_manager
 import transfer_pb2_grpc  as transfer_manager_grpc
 
@@ -53,6 +53,11 @@ def get_config(args):
         if 'cos_bucket' in config["ibmcloud"] and args.cos_bucket==None:
             args.cos_bucket= config["ibmcloud"]["cos_bucket"]
 
+        if 'aspera_transfer_node' in config["ibmcloud"]:
+            args.aspera_transfer_node = config["ibmcloud"]["aspera_transfer_node"]
+        else:
+            args.aspera_transfer_node = "https: //ats-sl-dal.aspera.io:443"
+
     return args
 
 def upload(args):
@@ -71,13 +76,14 @@ def upload(args):
             }
         },
         "direction": "send",
-        "remote_host": "https://ats-sl-fra.aspera.io:443",
+        "remote_host": args.aspera_transfer_node,
         "title": "strategic",
         "assets": {
-            "destination_root": os.path.split(args.file)[1],
+            "destination_root": "/",
             "paths": [
                 {
-                    "source": args.file
+                    "source": args.file,
+                    "destination": os.path.basename(args.file)
                 }
             ]
         }
@@ -93,7 +99,7 @@ def upload(args):
     # send start transfer request to transfer manager daemon
     transfer_response = client.StartTransfer(transfer_request)
     transfer_id = transfer_response.transferId
-    print("transfer started with id {0}".format(transfer_id))
+    print("Transfer started with id {0}.".format(transfer_id))
 
     # monitor transfer status
     for transfer_info in client.MonitorTransfers(
